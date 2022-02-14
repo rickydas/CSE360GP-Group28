@@ -9,3 +9,5 @@ I am Pablo Macias
 I am April St Onge
 
 I am Sean Nguyen
+
+I am Jeramey Stanners
