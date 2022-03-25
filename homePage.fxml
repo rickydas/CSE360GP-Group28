@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <ButtonBar layoutX="108.0" layoutY="14.0" prefHeight="40.0" prefWidth="469.0">
+      <ButtonBar layoutX="215.0" layoutY="14.0" prefHeight="40.0" prefWidth="469.0">
         <buttons>
           <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Home Page" />
             <Button mnemonicParsing="false" text="Menu" />
@@ -19,24 +19,24 @@
             <Button mnemonicParsing="false" text="Cart" />
         </buttons>
       </ButtonBar>
-      <Text layoutX="16.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule:" underline="true" wrappingWidth="133.33672714233398">
+      <Text layoutX="50.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule:" underline="true" wrappingWidth="133.33672714233398">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <Text layoutX="50.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday - Friday:  ">
          <font>
             <Font size="19.0" />
          </font>
       </Text>
-      <Text layoutX="27.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monday - Friday:  ">
+      <Text layoutX="50.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturday:  ">
          <font>
-            <Font size="14.0" />
+            <Font size="19.0" />
          </font>
       </Text>
-      <Text layoutX="27.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturday:  ">
+      <Text layoutX="50.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sunday:  ">
          <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Text layoutX="27.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sunday:  ">
-         <font>
-            <Font size="14.0" />
+            <Font size="19.0" />
          </font>
       </Text>
       <Text layoutX="40.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Item of the Day! ">
@@ -45,7 +45,7 @@
          </font>
       </Text>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="userWelcomeText" layoutX="393.0" layoutY="168.0" prefHeight="17.0" prefWidth="285.0" text="Welcome!">
+      <Label fx:id="userWelcomeText" layoutX="344.0" layoutY="178.0" prefHeight="17.0" prefWidth="285.0" text="Welcome!">
          <font>
             <Font size="46.0" />
          </font></Label>
