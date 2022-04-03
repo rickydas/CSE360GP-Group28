@@ -1,3 +1,4 @@
+package application;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -24,47 +25,52 @@ public class Owner extends Application
 	private String itemRemove;
 	private String URL;
 	double priceOfItem;
-	public void start(Stage primaryStage) 
+	public void start(Stage primaryStage, User user)
 	{
-		int height = 50; 
-				
+		Button home = new Button("Home Page");
+		Button cart = new Button("Cart");
+		Button menu = new Button("Menu");
+		Button profile = new Button("Profile");
+
+		int height = 50;
+
 		Text addLabel = new Text();
 		addLabel.setFont(new Font(25));
 		addLabel.setText("Add New Menu Item");
-		
+
 		Text remove = new Text();
 		remove.setFont(new Font(25));
 		remove.setText("Remove Item");
-		
+
 		Text ingr = new Text();
 		ingr.setFont(new Font(20));
 		ingr.setText("Item Ingredients:");
-		
+
 		Text name = new Text();
 		name.setFont(new Font(20));
 		name.setText("Item Name: ");
-		
+
 		Text name2 = new Text();
 		name2.setFont(new Font(20));
 		name2.setText("Item Name: ");
-		
+
 		Text attPic = new Text();
 		attPic.setFont(new Font(20));
 		attPic.setText("Item Image URL: ");
-		
+
 		Text price = new Text();
 		price.setFont(new Font(20));
 		price.setText("Item Price: ");
-		
+
 		Text added = new Text();
 		added.setFont(new Font(20));
 		added.setText("Item Added to Menu");
 		added.setFill(Color.RED);
-		
+
 		Text removed = new Text();
 		removed.setFont(new Font(20));
-		removed.setFill(Color.RED);				
-		
+		removed.setFill(Color.RED);
+
 		TextArea addName = new TextArea();
 		TextArea removeItem = new TextArea();
 		TextArea addIngr = new TextArea();
@@ -74,24 +80,21 @@ public class Owner extends Application
 		imageURL.setPrefHeight(height);
 		addName.setPrefHeight(height);
 		removeItem.setPrefHeight(height);
-		
+
 		Button a = new Button("Add");
 		Button r = new Button("Remove");
-		Button home = new Button("Home Page");
-		Button cart = new Button("Cart");
-		Button menu = new Button("Menu");
-		Button profile = new Button("Profile");
-		
+
+
 		VBox add = new VBox(addLabel, name, addName, ingr, addIngr, attPic, imageURL, price, price2, a);
 		VBox removeArea = new VBox(remove, name2, removeItem, r);
 		HBox navigation = new HBox(home, menu, cart, profile);
-		
+
 		GridPane gridPane = new GridPane();
 		gridPane.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
 		gridPane.add(navigation, 0, 0);
 		gridPane.add(add, 0, 1);
 		gridPane.add(removeArea, 1, 1);
-		
+
 		a.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
@@ -132,11 +135,15 @@ public class Owner extends Application
 			@Override
 			public void handle(ActionEvent event) 
 			{
-				gridPane.getChildren().clear();
-				gridPane.add(navigation, 0, 0);
-				Text home1 = new Text();
-				home1.setText("HOME PAGE");
-				gridPane.add(home1, 1, 1);
+				Home homePage = new Home();
+				Stage homeStage = new Stage();
+				homePage.start(homeStage, user);
+				primaryStage.close();
+				//gridPane.getChildren().clear();
+				//gridPane.add(navigation, 0, 0);
+				//Text home1 = new Text();
+				//home1.setText("HOME PAGE");
+				//gridPane.add(home1, 1, 1);
 				//go to home page class
 			}
 			
@@ -192,22 +199,22 @@ public class Owner extends Application
 			}
 			
 		});
-		Scene scene = new Scene(gridPane, 700, 700);
+		Scene scene = new Scene(gridPane, 900, 480);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		
-		
-		
-		
+
+
+
+
+
 		
 	}
-	
-	public static void main(String[] args) 
-	{		
+
+	public static void main(String[] args)
+	{
 		launch(args);
 	}
-	
+
 	public String getItemName()
 	{
 		return newItemName;
@@ -229,4 +236,13 @@ public class Owner extends Application
 		return itemRemove;
 	}
 
+	public void setUpOwnerPage(){
+
+	}
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }
