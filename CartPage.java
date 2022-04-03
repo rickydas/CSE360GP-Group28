@@ -154,7 +154,8 @@ public class CartPage extends Application {
         		Label summary = new Label("You paid " + String.valueOf(getTotalPrice(items)));
         		int position = (int) (Math.random() * 10);
         		Label yourPosition = new Label("You are number " + position + " in line!");
-        		purchaseNotif.getChildren().addAll(completed, summary, yourPosition);
+			Label yourWaitTime = new Label("Your order will take " + getWaitTime() + " minutes to complete");
+        		purchaseNotif.getChildren().addAll(completed, summary, yourPosition, yourWaitTime);
         		purchaseNotif.setPadding(new Insets(0, 90, 0, 0));
         		root.setRight(purchaseNotif);
         		
@@ -186,6 +187,16 @@ public class CartPage extends Application {
     	return sum;
     	
     }
+	
+   public int getWaitTime(ArrayList<MenuItem> list)
+   {
+	   int waitTime = 0;
+	   for(int i = 0; i < list.size(); i++)
+	   {
+		   waitTime += list.get(i).getPrepTime();
+	   }
+	   return waitTime;
+   }
 
     public static void main(String[] args) {
         launch(args);
