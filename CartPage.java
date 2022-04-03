@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class CartPage extends Application {
    // @Override
-    public void start(Stage primaryStage, User user, ArrayList<MenuItem> items) {
+    public void start(Stage primaryStage, User user) {
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
         Scene scene = new Scene(root);
@@ -43,15 +43,15 @@ public class CartPage extends Application {
         VBox cartDisplay = new VBox();
         Label yourItems = new Label("Your Items:");
         cartDisplay.getChildren().add(yourItems);
-        for(int i = 0; i < items.size(); i++) {
+        for(int i = 0; i < user.getCart().size(); i++) {
         	
         	HBox cartNode = new HBox();
-        	Label cnName = new Label(items.get(i).getName());
+        	Label cnName = new Label(user.getCart().get(i).getName());
         	cnName.setPadding(new Insets(0, 30, 0, 0));
-        	String pricetoString = String.valueOf(items.get(i).getPrice());
+        	String pricetoString = String.valueOf(user.getCart().get(i).getPrice());
         	Label cnPrice = new Label("$" + pricetoString);
         	cnPrice.setPadding(new Insets(0, 30, 0, 0));
-        	Label cnDesc = new Label(items.get(i).getDescription());
+        	Label cnDesc = new Label(user.getCart().get(i).getDescription());
         	cnDesc.setPadding(new Insets(0, 30, 0, 0));
         	cartNode.getChildren().addAll(cnName, cnPrice, cnDesc);
         	cartNode.setPadding(new Insets(20, 20, 20, 20));
@@ -59,6 +59,12 @@ public class CartPage extends Application {
         	cartDisplay.getChildren().add(cartNode);
         	
         }
+        
+        HBox deleteBox = new HBox();
+        Button deleteItem = new Button ("Remove Item");
+        TextField deleteField = new TextField("Name of Item to be Removed");
+        deleteBox.getChildren().addAll(deleteField, deleteItem);
+        cartDisplay.getChildren().add(deleteBox);
         
         cartDisplay.setPadding(new Insets(30, 30, 30, 30));
         root.setCenter(cartDisplay);
@@ -68,7 +74,7 @@ public class CartPage extends Application {
         VBox paymentDisplay = new VBox();
         Label paymentTitle = new Label("Payment");
         Label priceTitle = new Label("Your Total Is:");
-        String pricetoString = String.valueOf(getTotalPrice(items));
+        String pricetoString = String.valueOf(getTotalPrice(user.getCart()));
         Label priceDisplay = new Label("$" + pricetoString);
         priceDisplay.setFont(new Font("Arial", 40));
         paymentDisplay.getChildren().addAll(paymentTitle, priceTitle, priceDisplay);
@@ -145,16 +151,29 @@ public class CartPage extends Application {
         	}
         };
         
+        EventHandler<ActionEvent> deleteEvent = new EventHandler<ActionEvent>() {
+        	public void handle(ActionEvent e)
+        	{
+        		String deletedName = deleteField.getText();
+        		user.deleteFromCart(deletedName);
+        		CartPage refreshCart = new CartPage();
+        		Stage ncartStage = new Stage();
+        		refreshCart.start(ncartStage, user);
+        		primaryStage.close();
+        		
+        	}
+        };
+        
         EventHandler<ActionEvent> purchaseEvent = new EventHandler<ActionEvent>() {
         	public void handle(ActionEvent e)
         	{
         		VBox purchaseNotif = new VBox();
         		Label completed = new Label("Purchase Confirmed!");
         		completed.setFont(new Font("Arial", 20));
-        		Label summary = new Label("You paid " + String.valueOf(getTotalPrice(items)));
+        		Label summary = new Label("You paid " + String.valueOf(getTotalPrice(user.getCart())));
         		int position = (int) (Math.random() * 10);
         		Label yourPosition = new Label("You are number " + position + " in line!");
-			Label yourWaitTime = new Label("Your order will take " + getWaitTime() + " minutes to complete");
+        		Label yourWaitTime = new Label("Your order will take " + getWaitTime(user.getCart()) + " minutes to complete");
         		purchaseNotif.getChildren().addAll(completed, summary, yourPosition, yourWaitTime);
         		purchaseNotif.setPadding(new Insets(0, 90, 0, 0));
         		root.setRight(purchaseNotif);
@@ -167,11 +186,22 @@ public class CartPage extends Application {
         menu.setOnAction(menuEvent);
         payWithCard.setOnAction(purchaseEvent);
         newCard.setOnAction(purchaseEvent);
+        deleteItem.setOnAction(deleteEvent);
         primaryStage.setScene(scene);
         primaryStage.setWidth(900);
         primaryStage.setHeight(480);
         primaryStage.show();
 
+    }
+    
+    public int getWaitTime(ArrayList<MenuItem> list)
+    {
+ 	   int waitTime = 0;
+ 	   for(int i = 0; i < list.size(); i++)
+ 	   {
+ 		   waitTime += list.get(i).getPrepTime();
+ 	   }
+ 	   return waitTime;
     }
     
     public double getTotalPrice(ArrayList<MenuItem> list) {
@@ -187,16 +217,6 @@ public class CartPage extends Application {
     	return sum;
     	
     }
-	
-   public int getWaitTime(ArrayList<MenuItem> list)
-   {
-	   int waitTime = 0;
-	   for(int i = 0; i < list.size(); i++)
-	   {
-		   waitTime += list.get(i).getPrepTime();
-	   }
-	   return waitTime;
-   }
 
     public static void main(String[] args) {
         launch(args);
