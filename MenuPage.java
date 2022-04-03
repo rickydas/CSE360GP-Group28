@@ -32,27 +32,32 @@ public class MenuPage extends Application {
         //first MenuItem
         String name = "Hamburger";
         String desc = "Beef Patty, Lettuce, Tomato, Pickles, Cheese, Mayo\n";
-        MenuItem MenuItem = new MenuItem(name , (float) 80, desc);
+	int time = 10;
+        MenuItem MenuItem = new MenuItem(name , (float) 15, desc, time);
         MenuItems.add(MenuItem);
         //second MenuItem
         name = "Carnitas Taco";
         desc = "Pork, Onion, Cabbage, Tomato, Tortilla";
-        MenuItem MenuItem1 = new MenuItem(name , (float) 80 , desc);
+	time = 5;
+        MenuItem MenuItem1 = new MenuItem(name , (float) 8 , desc, time);
         MenuItems.add(MenuItem1);
         //third MenuItem
         name ="French Fries";
         desc = "Potato, Salt";
-        MenuItem MenuItem2 = new MenuItem(name , (float)80 , desc);
+	time = 2;
+        MenuItem MenuItem2 = new MenuItem(name , (float) 5 , desc, time);
         MenuItems.add(MenuItem2);
 	//fourth menuItem
 	name = "Chicken Quesadilla";
 	desc = "Flour tortilla, Cheese, Chicken Breast";
-	MenuItem MenuItem3 = new MenuItem(name , (float)80 , desc);
+	time = 10;
+	MenuItem MenuItem3 = new MenuItem(name , (float) 13 , desc, time);
 	MenuItems.add(MenuItem3);	    
 	//fifth menuItem
 	name = "Chicken Fingers";
 	desc = "Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil";
-	MenuItem MenuItem4 = new MenuItem(name , (float)80 , desc);
+	time = 15;
+	MenuItem MenuItem4 = new MenuItem(name , (float) 13 , desc, time);
 	MenuItems.add(MenuItem4);
     	
         BorderPane root = new BorderPane();
