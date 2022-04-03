@@ -44,6 +44,16 @@ public class MenuPage extends Application {
         desc = "Potato, Salt";
         MenuItem MenuItem2 = new MenuItem(name , (float)80 , desc);
         MenuItems.add(MenuItem2);
+	//fourth menuItem
+	name = "Chicken Quesadilla";
+	desc = "Flour tortilla, Cheese, Chicken Breast";
+	MenuItem MenuItem3 = new MenuItem(name , (float)80 , desc);
+	MenuItems.add(MenuItem3);	    
+	//fifth menuItem
+	name = "Chicken Fingers";
+	desc = "Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil";
+	MenuItem MenuItem4 = new MenuItem(name , (float)80 , desc);
+	MenuItems.add(MenuItem4);
     	
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
