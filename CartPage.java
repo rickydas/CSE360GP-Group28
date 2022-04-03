@@ -20,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.util.Random;
 
 
 public class CartPage extends Application {
@@ -62,7 +61,7 @@ public class CartPage extends Application {
         
         HBox deleteBox = new HBox();
         Button deleteItem = new Button ("Remove Item");
-        TextField deleteField = new TextField("Name of Item to be Removed");
+        TextField deleteField = new TextField("Name of Item to Remove");
         deleteBox.getChildren().addAll(deleteField, deleteItem);
         cartDisplay.getChildren().add(deleteBox);
         
