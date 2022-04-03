@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 public class User {
 
 
@@ -14,6 +16,7 @@ public class User {
 	private String codeOnBack;
 	private String experationDateMonth;
 	private boolean hasCoupon;
+	private ArrayList<MenuItem> CartItems = new ArrayList<MenuItem>();
     //Constructor for user objects
     public User(){
 
@@ -186,6 +189,19 @@ public class User {
         }
 
     }
+    
+    public ArrayList<MenuItem> getCart(){
+    	
+    	return this.CartItems;
+    	
+    }
+    
+    public void addToCart(MenuItem item)
+    {
+    	
+    	CartItems.add(item);
+    	
+    }
+    
 }
-
 
