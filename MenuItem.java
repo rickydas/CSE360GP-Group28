@@ -7,13 +7,15 @@ public class MenuItem
     private String description;
     private Float price;
     private Float quantity;
+    private int prepTime;
 
     //constructor
-    public MenuItem(String Name , Float Price, String Description)
+    public MenuItem(String Name , Float Price, String Description, int PrepTime)
     {
         name = Name;
         price =Price;
         description  =Description;
+        prepTime = PrepTime;
     }
 
     public void setName(String name) 
@@ -35,6 +37,11 @@ public class MenuItem
     {
         this.quantity = quantity;
     }
+    
+    public void setTime(int prepTime)
+    {
+        this.prepTime = prepTime;
+    }
 
     public String getName() 
     {
@@ -54,5 +61,10 @@ public class MenuItem
     public Float getQuantity() 
     {
         return quantity;
+    }
+    
+    public int getPrepTime()
+    {
+        return prepTime;
     }
 }
