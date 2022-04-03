@@ -202,5 +202,22 @@ public class User {
     	CartItems.add(item);
     	
     }
+    
+    public void deleteFromCart(String name) {
+    	
+    	
+    	for(int i = 0; i < CartItems.size(); i++) {
+    		
+    		if(name.equals(CartItems.get(i).getName())){
+    			
+    			CartItems.remove(i);
+    			break;
+    			
+    		}
+    		
+    	}
+    	
+    }
+    
 }
 
