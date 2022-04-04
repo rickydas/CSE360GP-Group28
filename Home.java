@@ -3,18 +3,13 @@ package application;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.geometry.Insets;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -104,7 +99,7 @@ public class Home extends Application{
 			public void handle(ActionEvent arg0) {
 				Stage cartStage = new Stage();
 				
-				cart.start(cartStage, user, null);
+				cart.start(cartStage, user);
 				primaryStage.close();
 			}
         	
