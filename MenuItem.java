@@ -4,18 +4,24 @@ package application;
 public class MenuItem
 {
     private String name;
+    private String imageURL;
     private String description;
     private Float price;
     private Float quantity;
     private int prepTime;
 
     //constructor
-    public MenuItem(String Name , Float Price, String Description, int PrepTime)
+    public MenuItem(String Name , Float Price, String Description, int PrepTime, String URL)
     {
         name = Name;
-        price =Price;
-        description  =Description;
+        price = Price;
+        description =Description;
         prepTime = PrepTime;
+        imageURL = URL;
+    }
+
+    public void setImageURL(String URL){
+        this.imageURL = URL;
     }
 
     public void setName(String name) 
@@ -66,5 +72,10 @@ public class MenuItem
     public int getPrepTime()
     {
         return prepTime;
+    }
+
+    public String getImageURL(){
+
+        return imageURL;
     }
 }

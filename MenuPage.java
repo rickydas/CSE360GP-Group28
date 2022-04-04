@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,33 +30,34 @@ public class MenuPage extends Application {
         //first MenuItem
         String name = "Hamburger";
         String desc = "Beef Patty, Lettuce, Tomato, Pickles, Cheese, Mayo\n";
-	int time = 10;
-        MenuItem MenuItem = new MenuItem(name , (float) 15, desc, time);
+	    int time = 10;
+        MenuItem MenuItem = new MenuItem(name , (float) 15, desc, time, "burger.png");
         MenuItems.add(MenuItem);
         //second MenuItem
         name = "Carnitas Taco";
         desc = "Pork, Onion, Cabbage, Tomato, Tortilla";
-	time = 5;
-        MenuItem MenuItem1 = new MenuItem(name , (float) 8 , desc, time);
+	    time = 5;
+        MenuItem MenuItem1 = new MenuItem(name , (float) 8 , desc, time, "carnitastaco.jpg");
         MenuItems.add(MenuItem1);
         //third MenuItem
         name ="French Fries";
         desc = "Potato, Salt";
-	time = 2;
-        MenuItem MenuItem2 = new MenuItem(name , (float) 5 , desc, time);
+	    time = 2;
+        MenuItem MenuItem2 = new MenuItem(name , (float) 5 , desc, time, "frenchfries.jpg");
         MenuItems.add(MenuItem2);
-	//fourth menuItem
-	name = "Chicken Quesadilla";
-	desc = "Flour tortilla, Cheese, Chicken Breast";
-	time = 10;
-	MenuItem MenuItem3 = new MenuItem(name , (float) 13 , desc, time);
-	MenuItems.add(MenuItem3);	    
-	//fifth menuItem
-	name = "Chicken Fingers";
-	desc = "Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil";
-	time = 15;
-	MenuItem MenuItem4 = new MenuItem(name , (float) 13 , desc, time);
-	MenuItems.add(MenuItem4);
+
+        //fourth menuItem
+	    name = "Chicken Quesadilla";
+	    desc = "Flour tortilla, Cheese, Chicken Breast";
+	    time = 10;
+	    MenuItem MenuItem3 = new MenuItem(name , (float) 13 , desc, time, "quesadilla.jpg");
+	    MenuItems.add(MenuItem3);
+	    //fifth menuItem
+	    name = "Chicken Fingers";
+	    desc = "Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil";
+	    time = 15;
+	    MenuItem MenuItem4 = new MenuItem(name , (float) 13 , desc, time, "chickenfinger.jpg");
+	    MenuItems.add(MenuItem4);
     	
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
@@ -80,60 +83,27 @@ public class MenuPage extends Application {
         	mnPrice.setPadding(new Insets(0, 30, 0, 0));
         	Label mnDesc = new Label(MenuItems.get(i).getDescription());
         	mnDesc.setPadding(new Insets(0, 30, 0, 0));
-        	menuNode.getChildren().addAll(mnName, mnPrice, mnDesc);
+
+        	Image img = new Image(MenuItems.get(i).getImageURL());
+        	ImageView imageView = new ImageView(img);
+        	imageView.setFitHeight(25);
+        	imageView.setFitWidth(25);
+        	menuNode.getChildren().addAll(mnName, mnPrice, mnDesc, imageView);
+
         	menuNode.setPadding(new Insets(20, 20, 20, 20));
-        	
+
         	menuDisplay.getChildren().add(menuNode);
         	
         }
+
         menuDisplay.setPadding(new Insets(30, 30, 30, 30));
         root.setCenter(menuDisplay);
-        
-        VBox rightBox = new VBox();
         
         HBox addBox = new HBox();
         Button addItem = new Button ("Add Item");
         TextField addField = new TextField("Name of Item to Add");
         addBox.getChildren().addAll(addField, addItem);
-        
-        HBox searchBox = new HBox();
-        Button searchItem = new Button("Search Item");
-        TextField searchField = new TextField("Name of Item to Search");
-        searchBox.getChildren().addAll(searchField, searchItem);
-        
-        Label searchResult = new Label();
-        searchResult.setVisible(false);
-        rightBox.getChildren().addAll(addBox, searchBox, searchResult);
-        root.setRight(rightBox);
-        
-        searchItem.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				
-				String searchWord = searchField.getText();
-				for(int i = 0; i < MenuItems.size(); i++){
-        	
-					if(MenuItems.get(i).getName().equals(searchWord)) {
-						
-						searchResult.setText("Item is in the Menu!");
-						break;
-					}
-					else {
-						
-						searchResult.setText("Item is not in the Menu!");
-						
-					}
-        	
-				}
-				
-				searchResult.setVisible(true);
-				
-			}
-        	
-        	
-        	
-        });
+        root.setRight(addBox);
         
         cartPageButton.setOnAction(new EventHandler<ActionEvent>() {
 
