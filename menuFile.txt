@@ -1,0 +1,5 @@
+Hamburger/Beef Patty, Lettuce, Tomato, Pickles, Cheese, Mayo/10/burger.png/15
+Carnitas Taco/Pork, Onion, Cabbage, Tomato, Tortilla/5/carnitastaco.jpg/8
+French Fries/Potato, Salt/2/frenchfries.jpg/5
+Chicken Quesadilla/Flour tortilla, Cheese, Chicken Breast/10/quesadilla.jpg/13
+Chicken Fingers/Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil/15/chickenfinger.jpg/13
