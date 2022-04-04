@@ -15,13 +15,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
 public class Home extends Application{
 
 
-    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems){
+    public void start(Stage primaryStage, User user){
 
         BorderPane homePage = new BorderPane();
         homePage.setPadding(new Insets(10, 10, 10, 10));
@@ -62,7 +63,7 @@ public class Home extends Application{
 				Stage profileStage = new Stage();
 				
 				if (user.getUserName().equals("Admin")) {
-					owner.start(profileStage, user, MenuItems); // Owner access page is only accessible if the user is "Admin"
+					owner.start(profileStage, user); // Owner access page is only accessible if the user is "Admin"
 					primaryStage.close();
 				} else {
 
@@ -74,7 +75,7 @@ public class Home extends Application{
 					homePage.setBottom(null);
 
 					// Display customer profile.
-					customer.start(profileStage, user, MenuItems);
+					customer.start(profileStage, user);
 					primaryStage.close();
 				}
 			}
@@ -87,7 +88,12 @@ public class Home extends Application{
 			public void handle(ActionEvent arg0) {
 				Stage menuStage = new Stage();
 				
-				menu.start(menuStage, user, MenuItems);
+				try {
+					menu.start(menuStage, user);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				primaryStage.close();
 			}
         	
@@ -101,7 +107,7 @@ public class Home extends Application{
 			public void handle(ActionEvent arg0) {
 				Stage cartStage = new Stage();
 				
-				cart.start(cartStage, user, MenuItems);
+				cart.start(cartStage, user);
 				primaryStage.close();
 			}
         	
