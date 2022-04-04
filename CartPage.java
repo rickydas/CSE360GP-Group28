@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -24,7 +25,7 @@ import javafx.scene.text.Text;
 
 public class CartPage extends Application {
    // @Override
-    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems) {
+    public void start(Stage primaryStage, User user) {
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
         Scene scene = new Scene(root);
@@ -84,7 +85,7 @@ public class CartPage extends Application {
         String priceToString = "0.00";
 	if(user.getCart() != null)
 	{
-		priceToString =	String.valueOf(getTotalPrice(user.getCart(), user.getCoupon()));
+		priceToString =	String.valueOf(getTotalPrice(user.getCart(), user.getCoupon()));	
 	}
 	    
         Label priceDisplay = new Label("$" + priceToString);
@@ -138,7 +139,7 @@ public class CartPage extends Application {
         	{
         		Home homePage = new Home();
         		Stage homeStage = new Stage();
-        		homePage.start(homeStage, user, MenuItems);
+        		homePage.start(homeStage, user);
         		primaryStage.close();
         	}
         };
@@ -149,12 +150,12 @@ public class CartPage extends Application {
 			if(user.getUserName().equals("Admin")){
 				Owner ownerPage = new Owner();
 				Stage ownerStage = new Stage();
-				ownerPage.start(ownerStage, user, MenuItems);
+				ownerPage.start(ownerStage, user);
 				primaryStage.close();
 			} else {
 				CustomerPage customer = new CustomerPage();
         			Stage customerStage = new Stage();
-        			customer.start(customerStage, user, MenuItems);
+        			customer.start(customerStage, user);
         			primaryStage.close();	
 			}
         		
@@ -166,7 +167,12 @@ public class CartPage extends Application {
         	{
         		MenuPage menu = new MenuPage();
         		Stage menuStage = new Stage();
-        		menu.start(menuStage, user, MenuItems);
+        		try {
+					menu.start(menuStage, user);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		primaryStage.close();
         	}
         };
@@ -178,7 +184,7 @@ public class CartPage extends Application {
         		user.deleteFromCart(deletedName);
         		CartPage refreshCart = new CartPage();
         		Stage ncartStage = new Stage();
-        		refreshCart.start(ncartStage, user, MenuItems);
+        		refreshCart.start(ncartStage, user);
         		primaryStage.close();
         		
         	}
