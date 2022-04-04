@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -44,35 +45,61 @@ public class Main extends Application {
 	TextField userNameField = new TextField("Username");
 
 	ArrayList<User> userList = new ArrayList<User>();
-	ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
-	User user;
-	
 
+	User user;
+	ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
+	File userInput = new File("list.txt");
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
 		primaryStage.setTitle("Application");
 		window = primaryStage;
 		//this section is used to get users from a file input
-		File userInput = new File("accountLog.txt");
+
 		Scanner sc = new Scanner(userInput);
 		String userName;
 		String password;
+		String name;
+		String email;
+		String phoneNumber;
+		String cardNumber;
+		String cardMonth;
+		String cardYear;
+		String backOfCard;
+		int couponCounter;
 		String newLine;
-		String[] userNameAndPassword;
+		
+		String[] userInformation;
 		while ((sc.hasNextLine())) {
 			newLine = sc.nextLine();
-			userNameAndPassword = newLine.split(",");
-			userName = userNameAndPassword[0];
-			password = userNameAndPassword[1];
+			userInformation = newLine.split(",");
+			userName = userInformation[0];
+			password = userInformation[1];
 			User newUser = new User(userName, password);
+			if(userInformation.length > 2)
+			{
+				couponCounter = Integer.parseInt(userInformation[2]);
+				name = userInformation[3];
+				email = userInformation[4];
+				phoneNumber = userInformation[5];
+				cardNumber = userInformation[6];
+				cardMonth = userInformation[7];
+				cardYear = userInformation[8];
+				backOfCard = userInformation[9];
+				newUser.setName(name);
+				newUser.setEmail(email);
+				newUser.setPhoneNumber(phoneNumber);
+				newUser.setCardNumber(cardNumber);
+				newUser.setExperationDateMonth(cardMonth);
+				newUser.setExperationDateYear(cardYear);
+				newUser.setNumberOnBackOfCard(backOfCard);
+			}
 			userList.add(newUser);
 		}
 
 		// Setting up login/register area
 		GridPane loginPane = new GridPane();
 		
-
 		loginPane.setPadding(new Insets(10, 10, 10, 10));
 		loginPane.setHgap(10);
 		loginPane.setVgap(10);
@@ -90,6 +117,8 @@ public class Main extends Application {
 		GridPane.setConstraints(registerButton, 1, 3);
 
 		GridPane.setConstraints(loginButton, 2, 3);
+		Label errorMessage = new Label("");
+		errorMessage.setTextFill(Color.RED);
 
 		loginPane.getChildren().addAll(userNameLabel, passwordLabel, userNameField, passwordInputField, registerButton,
 				loginButton);
@@ -98,6 +127,7 @@ public class Main extends Application {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(10, 10, 10, 10));
 		borderPane.setRight(loginPane);
+		borderPane.setCenter(errorMessage);
 		borderPane.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
 
 		Scene scene = new Scene(borderPane, 900, 480);
@@ -119,17 +149,18 @@ public class Main extends Application {
 							break;
 						}
 					}
-
 					if (!validUser) {
+						errorMessage.setText("Already exists");
 						System.out.println("Already exists");
 					} else {
 						try {
 							//this creates a new user when register button is clicked if that username is not taken already
-							FileWriter fWriter = new FileWriter(
-									"accountLog.txt", true);
+							FileWriter fWriter = new FileWriter("list.txt", true);
 							BufferedWriter bWriter = new BufferedWriter(fWriter);
 
-							bWriter.write(userNameField.getText() + "," + passwordInputField.getText());
+							bWriter.write(userNameField.getText() + "," + passwordInputField.getText() + "," + 0);
+							bWriter.write("," + "name" + "," + "email" + "," + "phoneNumber"+ "," + "cardNumber"+ "," + "00"+ "," + "00" + "," + "000");
+							
 							bWriter.newLine();
 							bWriter.close();
 						} catch (IOException e) {
@@ -138,7 +169,9 @@ public class Main extends Application {
 						}
 						Home homePage = new Home();
 						Stage homeStage = new Stage();
-						homePage.start(homeStage, user, MenuItems);
+						user.setCouponCounter();
+						user.setCart(MenuItems);
+						homePage.start(homeStage, user);
 						window.close();
 
 					}
@@ -160,6 +193,13 @@ public class Main extends Application {
 							&& userList.get(i).getPassword().equals(passwordInputField.getText())) {
 						validUser = true;
 						user = userList.get(i);
+						user.setCouponCounter();
+						try {
+							editLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						break;
 					}
 				}
@@ -168,10 +208,12 @@ public class Main extends Application {
 					//creates homepage and passes in user information
 					Home homePage = new Home();
 					Stage homeStage = new Stage();
-					homePage.start(homeStage, user, MenuItems);
+					user.setCart(MenuItems);
+					homePage.start(homeStage, user);
 					window.close();
 
 				} else {
+					errorMessage.setText("The username or password entered for this user is incorrect");
 					System.out.println("The username or password entered for this user is incorrect");
 				}
 
@@ -186,6 +228,47 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+	public void editLine() throws IOException
+	{
+		//File inputFile = new File("list.txt");
+
+		File tempFile = new File("myTempFile.txt");
+
+		BufferedReader reader = new BufferedReader(new FileReader(userInput));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+		Scanner sc = new Scanner(userInput);
+
+		String lineToRemove = user.getUserName();
+		String currentLine;
+
+		while((sc.hasNextLine())) {
+		    // trim newline when comparing with lineToRemove
+		    currentLine = sc.nextLine();
+		    String trimmedLine = currentLine.trim();
+		    String[] lineBeingRead;
+		    lineBeingRead = currentLine.split(",");
+
+		    if(lineBeingRead[0].equals(lineToRemove))
+		    	{
+		    		continue;
+		    	}
+		    writer.write(currentLine + System.getProperty("line.separator"));
+		}
+		writer.write(user.getUserName() + "," + user.getPassword() + "," + user.getCouponCounter() + "," + user.getName() + ","  + user.getEmail() + "," + user.getPhoneNumber() + "," + user.getCardNumber() + "," + user.getExperationMonth() + ","+ user.getExperationYear() + ","+ user.getNumberOnBack());
+		writer.newLine();
+		writer.close(); 
+		sc.close();
+		reader.close(); 
+		System.gc();
+		try {
+			  Thread.sleep(2000);
+			} catch (InterruptedException e) {
+			  e.printStackTrace();
+			}
+		userInput.delete();
+		tempFile.renameTo(userInput);
+
 	}
 
 }
