@@ -84,7 +84,7 @@ public class CartPage extends Application {
         String priceToString = "0.00";
 	if(user.getCart() != null)
 	{
-		priceToString =	String.valueOf(getTotalPrice(user.getCart()));	
+		priceToString =	String.valueOf(getTotalPrice(user.getCart(), user.getCoupon()));
 	}
 	    
         Label priceDisplay = new Label("$" + priceToString);
@@ -190,7 +190,7 @@ public class CartPage extends Application {
         		VBox purchaseNotif = new VBox();
         		Label completed = new Label("Purchase Confirmed!");
         		completed.setFont(new Font("Arial", 20));
-        		Label summary = new Label("You paid " + String.valueOf(getTotalPrice(user.getCart())));
+        		Label summary = new Label("You paid " + String.valueOf(getTotalPrice(user.getCart(), user.getCoupon())));
         		int position = (int) (Math.random() * 10);
         		Label yourPosition = new Label("You are number " + position + " in line!");
         		Label yourWaitTime = new Label("Your order will take " + getWaitTime(user.getCart()) + " minutes to complete");
@@ -224,7 +224,7 @@ public class CartPage extends Application {
  	   return waitTime;
     }
     
-    public float getTotalPrice(ArrayList<MenuItem> list) {
+    public float getTotalPrice(ArrayList<MenuItem> list, boolean hasCoupon) {
     	
     	float sum = 0;
     	
@@ -232,8 +232,11 @@ public class CartPage extends Application {
     		
     		sum += list.get(i).getPrice();
     		
-    	}
-    	
+    	} if(hasCoupon){
+
+    	    sum = (float) (sum * (1 - 0.15));
+        }
+
     	return sum;
     	
     }
