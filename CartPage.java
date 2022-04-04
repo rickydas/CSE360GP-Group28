@@ -81,13 +81,13 @@ public class CartPage extends Application {
         VBox paymentDisplay = new VBox();
         Label paymentTitle = new Label("Payment");
         Label priceTitle = new Label("Your Total Is:");
-        String pricetoString = "0.00";
+        String priceToString = "0.00";
 	if(user.getCart() != null)
 	{
 		priceToString =	String.valueOf(getTotalPrice(user.getCart()));	
 	}
 	    
-        Label priceDisplay = new Label("$" + pricetoString);
+        Label priceDisplay = new Label("$" + priceToString);
         priceDisplay.setFont(new Font("Arial", 40));
         paymentDisplay.getChildren().addAll(paymentTitle, priceTitle, priceDisplay);
         root.setRight(paymentDisplay);
@@ -146,7 +146,7 @@ public class CartPage extends Application {
         EventHandler<ActionEvent> profileEvent = new EventHandler<ActionEvent>() {
         	public void handle(ActionEvent e)
         	{
-			if(user.getUserName().equals("Admin){
+			if(user.getUserName().equals("Admin")){
 				Owner ownerPage = new Owner();
 				Stage ownerStage = new Stage();
 				ownerPage.start(ownerStage, user);
@@ -224,9 +224,9 @@ public class CartPage extends Application {
  	   return waitTime;
     }
     
-    public double getTotalPrice(ArrayList<MenuItem> list) {
+    public float getTotalPrice(ArrayList<MenuItem> list) {
     	
-    	double sum = 0;
+    	float sum = 0;
     	
     	for(int i = 0; i < list.size(); i++) {
     		

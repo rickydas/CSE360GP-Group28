@@ -24,7 +24,7 @@ public class Owner extends Application
 	private String newIngr;
 	private String itemRemove;
 	private String URL;
-	double priceOfItem;
+	float priceOfItem;
 	public void start(Stage primaryStage, User user)
 	{
 		Button home = new Button("Home Page");
@@ -103,7 +103,7 @@ public class Owner extends Application
 				newItemName = addName.getText();
 				newIngr = addIngr.getText();
 				URL = imageURL.getText();
-				priceOfItem = Double.parseDouble(price2.getText());
+				priceOfItem = Float.parseFloat(price2.getText());
 				added.setText(newItemName + " Added to Menu");
 				addName.setText("");
 				addIngr.setText("");
@@ -139,12 +139,7 @@ public class Owner extends Application
 				Stage homeStage = new Stage();
 				homePage.start(homeStage, user);
 				primaryStage.close();
-				//gridPane.getChildren().clear();
-				//gridPane.add(navigation, 0, 0);
-				//Text home1 = new Text();
-				//home1.setText("HOME PAGE");
-				//gridPane.add(home1, 1, 1);
-				//go to home page class
+
 			}
 			
 		});
@@ -154,14 +149,13 @@ public class Owner extends Application
 			@Override
 			public void handle(ActionEvent event) 
 			{
-				gridPane.getChildren().clear();
-				gridPane.add(navigation, 0, 0);
-				Text cart1 = new Text();
-				cart1.setText("CART PAGE");
-				gridPane.add(cart1, 1, 1);
-				//go to cart class
+				CartPage cartPage = new CartPage();
+				Stage cartStage = new Stage();
+				cartPage.start(cartStage, user);
+
+				primaryStage.close();
 			}
-			
+
 		});
 		
 		menu.setOnAction(new EventHandler<ActionEvent>()
@@ -169,12 +163,11 @@ public class Owner extends Application
 			@Override
 			public void handle(ActionEvent event) 
 			{
-				gridPane.getChildren().clear();
-				gridPane.add(navigation, 0, 0);
-				Text menu1 = new Text();
-				menu1.setText("MENU PAGE");
-				gridPane.add(menu1, 1, 1);
-				//go to menu class
+				MenuPage menuPage = new MenuPage();
+				Stage menuStage = new Stage();
+				menuPage.start(menuStage, user);
+
+				primaryStage.close();
 			}
 			
 		});
