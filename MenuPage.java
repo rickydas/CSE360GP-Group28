@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -15,7 +16,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 
 
@@ -23,8 +23,6 @@ public class MenuPage extends Application {
    // @Override
 	
 	private ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
-	private ArrayList<Button> MenuButtons = new ArrayList<Button>();
-	private ArrayList<MenuItem> CartItems = new ArrayList<MenuItem>();
 	
     public void start(Stage primaryStage, User user) {
         //first MenuItem
@@ -36,16 +34,16 @@ public class MenuPage extends Application {
         //second MenuItem
         name = "Carnitas Taco";
         desc = "Pork, Onion, Cabbage, Tomato, Tortilla";
-	 time = 8;
+	time = 5;
         MenuItem MenuItem1 = new MenuItem(name , (float) 8 , desc, time);
         MenuItems.add(MenuItem1);
         //third MenuItem
         name ="French Fries";
         desc = "Potato, Salt";
-	time = 5;
+	time = 2;
         MenuItem MenuItem2 = new MenuItem(name , (float) 5 , desc, time);
         MenuItems.add(MenuItem2);
-    	//fourth menuItem
+	//fourth menuItem
 	name = "Chicken Quesadilla";
 	desc = "Flour tortilla, Cheese, Chicken Breast";
 	time = 10;
@@ -57,7 +55,7 @@ public class MenuPage extends Application {
 	time = 15;
 	MenuItem MenuItem4 = new MenuItem(name , (float) 13 , desc, time);
 	MenuItems.add(MenuItem4);
-	    
+    	
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
         Scene scene = new Scene(root);
@@ -82,18 +80,20 @@ public class MenuPage extends Application {
         	mnPrice.setPadding(new Insets(0, 30, 0, 0));
         	Label mnDesc = new Label(MenuItems.get(i).getDescription());
         	mnDesc.setPadding(new Insets(0, 30, 0, 0));
-        	Button mnAdd = new Button("Add");
-        	MenuButtons.add(mnAdd);
-        	menuNode.getChildren().addAll(mnName, mnPrice, mnDesc, MenuButtons.get(i));
+        	menuNode.getChildren().addAll(mnName, mnPrice, mnDesc);
         	menuNode.setPadding(new Insets(20, 20, 20, 20));
         	
         	menuDisplay.getChildren().add(menuNode);
         	
         }
-
-
         menuDisplay.setPadding(new Insets(30, 30, 30, 30));
         root.setCenter(menuDisplay);
+        
+        HBox addBox = new HBox();
+        Button addItem = new Button ("Add Item");
+        TextField addField = new TextField("Name of Item to Add");
+        addBox.getChildren().addAll(addField, addItem);
+        root.setRight(addBox);
         
         cartPageButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -102,25 +102,29 @@ public class MenuPage extends Application {
 				
 				CartPage cart = new CartPage();
 				Stage cartStage = new Stage();
-				cart.start(cartStage, user, MenuItems);
+				cart.start(cartStage, user);
 				primaryStage.close();
 			}
         	
         	
         	
         });
-
+        
         homePageButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
 
-                Home homePage = new Home();
-                Stage homeStage = new Stage();
-                homePage.start(homeStage, user);
-                primaryStage.close();
-            }
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				Home home = new Home();
+				Stage homeStage = new Stage();
+				home.start(homeStage, user);
+				primaryStage.close();
+			}
+        	
+        	
+        	
         });
-
+        
         profilePageButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -143,6 +147,29 @@ public class MenuPage extends Application {
             }
         });
         
+        addItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				String itemToAdd = addField.getText();
+				for(int i = 0; i < MenuItems.size(); i++) {
+					
+					if(MenuItems.get(i).getName().equals(itemToAdd)) {
+						
+						user.addToCart(MenuItems.get(i));
+						break;
+						
+					}
+					
+				}
+				
+			}
+        	
+        	
+        	
+        });
+        
         
         primaryStage.setScene(scene);
         primaryStage.setWidth(900);
@@ -150,12 +177,11 @@ public class MenuPage extends Application {
         primaryStage.show();
 
     }
+    
 
-    public void addItem(MenuItem item){
-
-        MenuItems.add(item);
+    public static void main(String[] args) {
+        launch(args);
     }
-
 
 	@Override
 	public void start(Stage arg0) throws Exception {
