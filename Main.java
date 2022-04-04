@@ -53,7 +53,7 @@ public class Main extends Application {
 		primaryStage.setTitle("Application");
 		window = primaryStage;
 		//this section is used to get users from a file input
-		File userInput = new File("C:\\Users\\Ricky\\CSE365GP\\twentyEight\\list.txt");
+		File userInput = new File("accountLog.txt");
 		Scanner sc = new Scanner(userInput);
 		String userName;
 		String password;
@@ -125,7 +125,7 @@ public class Main extends Application {
 						try {
 							//this creates a new user when register button is clicked if that username is not taken already
 							FileWriter fWriter = new FileWriter(
-									"C:\\Users\\Ricky\\CSE365GP\\twentyEight\\list.txt", true);
+									"accountLog.txt", true);
 							BufferedWriter bWriter = new BufferedWriter(fWriter);
 
 							bWriter.write(userNameField.getText() + "," + passwordInputField.getText());
