@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
+
 public class Owner extends Application
 {
 	private String newItemName;
@@ -25,7 +27,9 @@ public class Owner extends Application
 	private String itemRemove;
 	private String URL;
 	float priceOfItem;
-	public void start(Stage primaryStage, User user)
+
+
+	public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems)
 	{
 		Button home = new Button("Home Page");
 		Button cart = new Button("Cart");
@@ -104,13 +108,18 @@ public class Owner extends Application
 				newIngr = addIngr.getText();
 				URL = imageURL.getText();
 				priceOfItem = Float.parseFloat(price2.getText());
+
+				MenuPage menuPage = new MenuPage();
+				MenuItem menuItem = new MenuItem(newItemName, priceOfItem, newIngr,25, URL);
+				MenuItems.add(menuItem);
+
 				added.setText(newItemName + " Added to Menu");
 				addName.setText("");
 				addIngr.setText("");
 				imageURL.setText("");
 				price2.setText("");
 				gridPane.add(added,0, 2);
-				//function call to add item to menu page
+
 												
 			}
 			
@@ -137,7 +146,7 @@ public class Owner extends Application
 			{
 				Home homePage = new Home();
 				Stage homeStage = new Stage();
-				homePage.start(homeStage, user);
+				homePage.start(homeStage, user, MenuItems);
 				primaryStage.close();
 
 			}
@@ -151,7 +160,7 @@ public class Owner extends Application
 			{
 				CartPage cartPage = new CartPage();
 				Stage cartStage = new Stage();
-				cartPage.start(cartStage, user);
+				cartPage.start(cartStage, user, MenuItems);
 
 				primaryStage.close();
 			}
@@ -165,7 +174,7 @@ public class Owner extends Application
 			{
 				MenuPage menuPage = new MenuPage();
 				Stage menuStage = new Stage();
-				menuPage.start(menuStage, user);
+				menuPage.start(menuStage, user, MenuItems);
 
 				primaryStage.close();
 			}

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -24,40 +25,10 @@ import java.util.ArrayList;
 public class MenuPage extends Application {
    // @Override
 	
-	private ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
-	
-    public void start(Stage primaryStage, User user) {
-        //first MenuItem
-        String name = "Hamburger";
-        String desc = "Beef Patty, Lettuce, Tomato, Pickles, Cheese, Mayo\n";
-	    int time = 10;
-        MenuItem MenuItem = new MenuItem(name , (float) 15, desc, time, "burger.png");
-        MenuItems.add(MenuItem);
-        //second MenuItem
-        name = "Carnitas Taco";
-        desc = "Pork, Onion, Cabbage, Tomato, Tortilla";
-	    time = 5;
-        MenuItem MenuItem1 = new MenuItem(name , (float) 8 , desc, time, "carnitastaco.jpg");
-        MenuItems.add(MenuItem1);
-        //third MenuItem
-        name ="French Fries";
-        desc = "Potato, Salt";
-	    time = 2;
-        MenuItem MenuItem2 = new MenuItem(name , (float) 5 , desc, time, "frenchfries.jpg");
-        MenuItems.add(MenuItem2);
 
-        //fourth menuItem
-	    name = "Chicken Quesadilla";
-	    desc = "Flour tortilla, Cheese, Chicken Breast";
-	    time = 10;
-	    MenuItem MenuItem3 = new MenuItem(name , (float) 13 , desc, time, "quesadilla.jpg");
-	    MenuItems.add(MenuItem3);
-	    //fifth menuItem
-	    name = "Chicken Fingers";
-	    desc = "Chicken Breast, Flour, Eggs, Buttermilk, Seasoning, Oil";
-	    time = 15;
-	    MenuItem MenuItem4 = new MenuItem(name , (float) 13 , desc, time, "chickenfinger.jpg");
-	    MenuItems.add(MenuItem4);
+	
+    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems) {
+
     	
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
@@ -112,7 +83,7 @@ public class MenuPage extends Application {
 				
 				CartPage cart = new CartPage();
 				Stage cartStage = new Stage();
-				cart.start(cartStage, user);
+				cart.start(cartStage, user, MenuItems);
 				primaryStage.close();
 			}
         	
@@ -127,7 +98,7 @@ public class MenuPage extends Application {
 				
 				Home home = new Home();
 				Stage homeStage = new Stage();
-				home.start(homeStage, user);
+				home.start(homeStage, user, MenuItems);
 				primaryStage.close();
 			}
         	
@@ -144,13 +115,13 @@ public class MenuPage extends Application {
 
                     Owner ownerPage = new Owner();
                     Stage ownerStage = new Stage();
-                    ownerPage.start(ownerStage, user);
+                    ownerPage.start(ownerStage, user, MenuItems);
                     primaryStage.close();
                 } else {
 
                     CustomerPage customerPage = new CustomerPage();
                     Stage customerStage = new Stage();
-                    customerPage.start(customerStage, user);
+                    customerPage.start(customerStage, user, MenuItems);
                     primaryStage.close();
 
                 }

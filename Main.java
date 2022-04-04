@@ -44,8 +44,9 @@ public class Main extends Application {
 	TextField userNameField = new TextField("Username");
 
 	ArrayList<User> userList = new ArrayList<User>();
-
+	ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
 	User user;
+	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -137,7 +138,7 @@ public class Main extends Application {
 						}
 						Home homePage = new Home();
 						Stage homeStage = new Stage();
-						homePage.start(homeStage, user);
+						homePage.start(homeStage, user, MenuItems);
 						window.close();
 
 					}
@@ -167,7 +168,7 @@ public class Main extends Application {
 					//creates homepage and passes in user information
 					Home homePage = new Home();
 					Stage homeStage = new Stage();
-					homePage.start(homeStage, user);
+					homePage.start(homeStage, user, MenuItems);
 					window.close();
 
 				} else {

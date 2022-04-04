@@ -15,11 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 
 public class Home extends Application{
 
 
-    public void start(Stage primaryStage, User user){
+    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems){
 
         BorderPane homePage = new BorderPane();
         homePage.setPadding(new Insets(10, 10, 10, 10));
@@ -60,7 +62,7 @@ public class Home extends Application{
 				Stage profileStage = new Stage();
 				
 				if (user.getUserName().equals("Admin")) {
-					owner.start(profileStage, user); // Owner access page is only accessible if the user is "Admin"
+					owner.start(profileStage, user, MenuItems); // Owner access page is only accessible if the user is "Admin"
 					primaryStage.close();
 				} else {
 
@@ -72,7 +74,7 @@ public class Home extends Application{
 					homePage.setBottom(null);
 
 					// Display customer profile.
-					customer.start(profileStage, user);
+					customer.start(profileStage, user, MenuItems);
 					primaryStage.close();
 				}
 			}
@@ -85,7 +87,7 @@ public class Home extends Application{
 			public void handle(ActionEvent arg0) {
 				Stage menuStage = new Stage();
 				
-				menu.start(menuStage, user);
+				menu.start(menuStage, user, MenuItems);
 				primaryStage.close();
 			}
         	
@@ -99,7 +101,7 @@ public class Home extends Application{
 			public void handle(ActionEvent arg0) {
 				Stage cartStage = new Stage();
 				
-				cart.start(cartStage, user);
+				cart.start(cartStage, user, MenuItems);
 				primaryStage.close();
 			}
         	

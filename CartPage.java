@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 
 public class CartPage extends Application {
    // @Override
-    public void start(Stage primaryStage, User user) {
+    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems) {
         BorderPane root = new BorderPane();
         root.setBackground(new Background((new BackgroundFill(Color.rgb(174,198,240), CornerRadii.EMPTY, Insets.EMPTY))));
         Scene scene = new Scene(root);
@@ -138,7 +138,7 @@ public class CartPage extends Application {
         	{
         		Home homePage = new Home();
         		Stage homeStage = new Stage();
-        		homePage.start(homeStage, user);
+        		homePage.start(homeStage, user, MenuItems);
         		primaryStage.close();
         	}
         };
@@ -149,12 +149,12 @@ public class CartPage extends Application {
 			if(user.getUserName().equals("Admin")){
 				Owner ownerPage = new Owner();
 				Stage ownerStage = new Stage();
-				ownerPage.start(ownerStage, user);
+				ownerPage.start(ownerStage, user, MenuItems);
 				primaryStage.close();
 			} else {
 				CustomerPage customer = new CustomerPage();
         			Stage customerStage = new Stage();
-        			customer.start(customerStage, user);
+        			customer.start(customerStage, user, MenuItems);
         			primaryStage.close();	
 			}
         		
@@ -166,7 +166,7 @@ public class CartPage extends Application {
         	{
         		MenuPage menu = new MenuPage();
         		Stage menuStage = new Stage();
-        		menu.start(menuStage, user);
+        		menu.start(menuStage, user, MenuItems);
         		primaryStage.close();
         	}
         };
@@ -178,7 +178,7 @@ public class CartPage extends Application {
         		user.deleteFromCart(deletedName);
         		CartPage refreshCart = new CartPage();
         		Stage ncartStage = new Stage();
-        		refreshCart.start(ncartStage, user);
+        		refreshCart.start(ncartStage, user, MenuItems);
         		primaryStage.close();
         		
         	}

@@ -18,10 +18,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 
 public class CustomerPage extends Application {
    // @Override
-    public void start(Stage primaryStage, User user) {
+    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems) {
         BorderPane root = new BorderPane();
         VBox leftSide = new VBox();
         VBox middle = new VBox();
@@ -151,7 +153,7 @@ public class CustomerPage extends Application {
         	{
         		Home homePage = new Home();
         		Stage homeStage = new Stage();
-        		homePage.start(homeStage, user);
+        		homePage.start(homeStage, user, MenuItems);
         		primaryStage.close();
         	}
         };
@@ -161,7 +163,7 @@ public class CustomerPage extends Application {
         	{
         		MenuPage menu = new MenuPage();
         		Stage menuStage = new Stage();
-        		menu.start(menuStage, user);
+        		menu.start(menuStage, user, MenuItems);
         		primaryStage.close();
         	}
         };
@@ -170,7 +172,7 @@ public class CustomerPage extends Application {
         	{
         		CartPage cart = new CartPage();
         		Stage cartStage = new Stage();
-        		cart.start(cartStage, user);
+        		cart.start(cartStage, user, MenuItems);
         		primaryStage.close();
         	}
         };
