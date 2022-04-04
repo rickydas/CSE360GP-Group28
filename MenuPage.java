@@ -89,11 +89,51 @@ public class MenuPage extends Application {
         menuDisplay.setPadding(new Insets(30, 30, 30, 30));
         root.setCenter(menuDisplay);
         
+        VBox rightBox = new VBox();
+        
         HBox addBox = new HBox();
         Button addItem = new Button ("Add Item");
         TextField addField = new TextField("Name of Item to Add");
         addBox.getChildren().addAll(addField, addItem);
-        root.setRight(addBox);
+        
+        HBox searchBox = new HBox();
+        Button searchItem = new Button("Search Item");
+        TextField searchField = new TextField("Name of Item to Search");
+        searchBox.getChildren().addAll(searchField, searchItem);
+        
+        Label searchResult = new Label();
+        searchResult.setVisible(false);
+        rightBox.getChildren().addAll(addBox, searchBox, searchResult);
+        root.setRight(rightBox);
+        
+        searchItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				String searchWord = searchField.getText();
+				for(int i = 0; i < MenuItems.size(); i++){
+        	
+					if(MenuItems.get(i).getName().equals(searchWord)) {
+						
+						searchResult.setText("Item is in the Menu!");
+						break;
+					}
+					else {
+						
+						searchResult.setText("Item is not in the Menu!");
+						
+					}
+        	
+				}
+				
+				searchResult.setVisible(true);
+				
+			}
+        	
+        	
+        	
+        });
         
         cartPageButton.setOnAction(new EventHandler<ActionEvent>() {
 
