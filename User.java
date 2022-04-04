@@ -16,7 +16,9 @@ public class User {
 	private String codeOnBack;
 	private String experationDateMonth;
 	private boolean hasCoupon;
+	private int couponCounter;
 	private ArrayList<MenuItem> CartItems = new ArrayList<MenuItem>();
+	private ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
     //Constructor for user objects
     public User(){
 
@@ -40,13 +42,21 @@ public class User {
     {
         return hasCoupon;
     }
+    public void setCouponCounter()
+    {
+    	couponCounter += 1;
+    }
+    public int getCouponCounter()
+    {
+    	return couponCounter;
+    }
 
     public User(String userName, String userPassword){
 
-        name = userName;
+        this.userName = userName;
         password = userPassword;
 
-        if(name.equals("Owner") && password.equals("CSE360")){
+        if(userName.equals("Owner") && password.equals("CSE360")){
             isOwner = true;
         }
 
@@ -55,7 +65,7 @@ public class User {
     //Setter methods for a user
     public void setUserName(String userName){
 
-        name = userName;
+        this.userName = userName;
     }
 
     public void setPassword(String userPassword){
@@ -66,7 +76,7 @@ public class User {
     //Accessor methods for a user
     public String getUserName(){
 
-        return name;
+        return userName;
     }
 
     public String getPassword(){
@@ -195,6 +205,12 @@ public class User {
     	return this.CartItems;
     	
     }
+    public ArrayList<MenuItem> getMenu(){
+    	return this.MenuItems;
+    }
+    public void setMenu() {
+    	this.MenuItems = new ArrayList<MenuItem>();
+    }
     
     public void addToCart(MenuItem item)
     {
@@ -218,6 +234,10 @@ public class User {
     	}
     	
     }
+    public void setCart(ArrayList<MenuItem> cart)
+    {
+    	this.CartItems = cart;
+    }
+    
     
 }
-
