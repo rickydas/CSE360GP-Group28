@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Owner extends Application
@@ -29,7 +30,7 @@ public class Owner extends Application
 	float priceOfItem;
 
 
-	public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems)
+	public void start(Stage primaryStage, User user)
 	{
 		Button home = new Button("Home Page");
 		Button cart = new Button("Cart");
@@ -111,7 +112,8 @@ public class Owner extends Application
 
 				MenuPage menuPage = new MenuPage();
 				MenuItem menuItem = new MenuItem(newItemName, priceOfItem, newIngr,25, URL);
-				MenuItems.add(menuItem);
+				
+				user.getCart().add(menuItem);
 
 				added.setText(newItemName + " Added to Menu");
 				addName.setText("");
@@ -146,7 +148,7 @@ public class Owner extends Application
 			{
 				Home homePage = new Home();
 				Stage homeStage = new Stage();
-				homePage.start(homeStage, user, MenuItems);
+				homePage.start(homeStage, user);
 				primaryStage.close();
 
 			}
@@ -160,7 +162,7 @@ public class Owner extends Application
 			{
 				CartPage cartPage = new CartPage();
 				Stage cartStage = new Stage();
-				cartPage.start(cartStage, user, MenuItems);
+				cartPage.start(cartStage, user);
 
 				primaryStage.close();
 			}
@@ -174,7 +176,12 @@ public class Owner extends Application
 			{
 				MenuPage menuPage = new MenuPage();
 				Stage menuStage = new Stage();
-				menuPage.start(menuStage, user, MenuItems);
+				try {
+					menuPage.start(menuStage, user);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				primaryStage.close();
 			}
