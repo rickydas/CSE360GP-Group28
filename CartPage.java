@@ -42,22 +42,30 @@ public class CartPage extends Application {
         VBox cartDisplay = new VBox();
         Label yourItems = new Label("Your Items:");
         cartDisplay.getChildren().add(yourItems);
-        for(int i = 0; i < user.getCart().size(); i++) {
+	
+	if(user.getCart() != null)
+	{
+		for(int i = 0; i < user.getCart().size(); i++) {
         	
-        	HBox cartNode = new HBox();
-        	Label cnName = new Label(user.getCart().get(i).getName());
-        	cnName.setPadding(new Insets(0, 30, 0, 0));
-        	String pricetoString = String.valueOf(user.getCart().get(i).getPrice());
-        	Label cnPrice = new Label("$" + pricetoString);
-        	cnPrice.setPadding(new Insets(0, 30, 0, 0));
-        	Label cnDesc = new Label(user.getCart().get(i).getDescription());
-        	cnDesc.setPadding(new Insets(0, 30, 0, 0));
-        	cartNode.getChildren().addAll(cnName, cnPrice, cnDesc);
-        	cartNode.setPadding(new Insets(20, 20, 20, 20));
+        		HBox cartNode = new HBox();
+        		Label cnName = new Label(user.getCart().get(i).getName());
+        		cnName.setPadding(new Insets(0, 30, 0, 0));
+        		String pricetoString = String.valueOf(user.getCart().get(i).getPrice());
+        		Label cnPrice = new Label("$" + pricetoString);
+        		cnPrice.setPadding(new Insets(0, 30, 0, 0));
+        		Label cnDesc = new Label(user.getCart().get(i).getDescription());
+        		cnDesc.setPadding(new Insets(0, 30, 0, 0));
+        		cartNode.getChildren().addAll(cnName, cnPrice, cnDesc);
+        		cartNode.setPadding(new Insets(20, 20, 20, 20));
         	
-        	cartDisplay.getChildren().add(cartNode);
+        		cartDisplay.getChildren().add(cartNode);
         	
-        }
+        	}	
+	} else {
+		
+		//Cart is empty
+	}
+    
         
         HBox deleteBox = new HBox();
         Button deleteItem = new Button ("Remove Item");
@@ -73,7 +81,12 @@ public class CartPage extends Application {
         VBox paymentDisplay = new VBox();
         Label paymentTitle = new Label("Payment");
         Label priceTitle = new Label("Your Total Is:");
-        String pricetoString = String.valueOf(getTotalPrice(user.getCart()));
+        String pricetoString = "0.00";
+	if(user.getCart() != null)
+	{
+		priceToString =	String.valueOf(getTotalPrice(user.getCart()));	
+	}
+	    
         Label priceDisplay = new Label("$" + pricetoString);
         priceDisplay.setFont(new Font("Arial", 40));
         paymentDisplay.getChildren().addAll(paymentTitle, priceTitle, priceDisplay);
@@ -133,10 +146,18 @@ public class CartPage extends Application {
         EventHandler<ActionEvent> profileEvent = new EventHandler<ActionEvent>() {
         	public void handle(ActionEvent e)
         	{
-        		CustomerPage customer = new CustomerPage();
-        		Stage customerStage = new Stage();
-        		customer.start(customerStage, user);
-        		primaryStage.close();
+			if(user.getUserName().equals("Admin){
+				Owner ownerPage = new Owner();
+				Stage ownerStage = new Stage();
+				ownerPage.start(ownerStage, user);
+				primaryStage.close();
+			} else {
+				CustomerPage customer = new CustomerPage();
+        			Stage customerStage = new Stage();
+        			customer.start(customerStage, user);
+        			primaryStage.close();	
+			}
+        		
         	}
         };
 
