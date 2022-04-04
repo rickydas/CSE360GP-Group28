@@ -35,7 +35,6 @@ public class MenuPage extends Application {
 	// @Override
 
 	// private ArrayList<MenuItem> MenuItems = new ArrayList<MenuItem>();
-	private ArrayList<Button> MenuButtons = new ArrayList<Button>();
 	private ArrayList<MenuItem> CartItems = new ArrayList<MenuItem>();
 	File menuFile = new File("menuFile.txt");
 
@@ -89,9 +88,7 @@ public class MenuPage extends Application {
 			mnPrice.setPadding(new Insets(0, 30, 0, 0));
 			Label mnDesc = new Label(user.getMenu().get(i).getDescription());
 			mnDesc.setPadding(new Insets(0, 30, 0, 0));
-			Button mnAdd = new Button("Add");
-			MenuButtons.add(mnAdd);
-			menuNode.getChildren().addAll(mnName, mnPrice, mnDesc, MenuButtons.get(i));
+			menuNode.getChildren().addAll(mnName, mnPrice, mnDesc);
 			menuNode.setPadding(new Insets(20, 20, 20, 20));
 			menuDisplay.getChildren().add(menuNode);
 			Image img = new Image(user.getMenu().get(i).getImageURL());
@@ -103,11 +100,22 @@ public class MenuPage extends Application {
 		menuDisplay.setPadding(new Insets(30, 30, 30, 30));
 		root.setCenter(menuDisplay);
 		
+		VBox rightBox = new VBox();
+		HBox searchBox = new HBox();
+		Button searchItem = new Button("Search Item");
+		TextField searchField = new TextField("Name of Item to Search");
+		searchBox.getChildren().addAll(searchField, searchItem);
+		Label searchResult = new Label();
+		searchResult.setVisible(false);
+		
 		HBox addBox = new HBox();
         Button addItem = new Button ("Add Item");
         TextField addField = new TextField("Name of Item to Add");
         addBox.getChildren().addAll(addField, addItem);
-        root.setRight(addBox);
+        
+        rightBox.getChildren().addAll(addBox, searchBox, searchResult);
+        
+        root.setRight(rightBox);
 
 		cartPageButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -172,6 +180,36 @@ public class MenuPage extends Application {
 					}
 					
 				}
+				
+			}
+        	
+        	
+        	
+        });
+		
+		searchItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				String itemToSearch = searchField.getText();
+				for(int i = 0; i < user.getMenu().size(); i++) {
+					
+					if(user.getMenu().get(i).getName().equals(itemToSearch)) {
+						
+						searchResult.setText("Item is in the Menu!");
+						break;
+						
+					}
+					else {
+						
+						searchResult.setText("Item is not in the Menu!");
+						
+					}
+					
+				}
+				
+				searchResult.setVisible(true);
 				
 			}
         	
