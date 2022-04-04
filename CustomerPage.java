@@ -18,12 +18,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
 public class CustomerPage extends Application {
    // @Override
-    public void start(Stage primaryStage, User user, ArrayList<MenuItem> MenuItems) {
+    public void start(Stage primaryStage, User user) {
         BorderPane root = new BorderPane();
         VBox leftSide = new VBox();
         VBox middle = new VBox();
@@ -153,7 +154,7 @@ public class CustomerPage extends Application {
         	{
         		Home homePage = new Home();
         		Stage homeStage = new Stage();
-        		homePage.start(homeStage, user, MenuItems);
+        		homePage.start(homeStage, user);
         		primaryStage.close();
         	}
         };
@@ -163,7 +164,12 @@ public class CustomerPage extends Application {
         	{
         		MenuPage menu = new MenuPage();
         		Stage menuStage = new Stage();
-        		menu.start(menuStage, user, MenuItems);
+        		try {
+					menu.start(menuStage, user);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		primaryStage.close();
         	}
         };
@@ -172,7 +178,7 @@ public class CustomerPage extends Application {
         	{
         		CartPage cart = new CartPage();
         		Stage cartStage = new Stage();
-        		cart.start(cartStage, user, MenuItems);
+        		cart.start(cartStage, user);
         		primaryStage.close();
         	}
         };
