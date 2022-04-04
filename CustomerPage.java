@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -156,9 +155,30 @@ public class CustomerPage extends Application {
         		primaryStage.close();
         	}
         };
+        
+        EventHandler<ActionEvent> menuEvent = new EventHandler<ActionEvent>() {
+        	public void handle(ActionEvent e)
+        	{
+        		MenuPage menu = new MenuPage();
+        		Stage menuStage = new Stage();
+        		menu.start(menuStage, user);
+        		primaryStage.close();
+        	}
+        };
+        EventHandler<ActionEvent> cartEvent = new EventHandler<ActionEvent>() {
+        	public void handle(ActionEvent e)
+        	{
+        		CartPage cart = new CartPage();
+        		Stage cartStage = new Stage();
+        		cart.start(cartStage, user);
+        		primaryStage.close();
+        	}
+        };
         editProfile.setOnAction(editProfileEvent);
         submitButton.setOnAction(submitEvent);
         home.setOnAction(homeEvent);
+        menu.setOnAction(menuEvent);
+        cart.setOnAction(cartEvent);
         primaryStage.setScene(scene);
         primaryStage.setWidth(900);
         primaryStage.setHeight(480);
